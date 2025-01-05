@@ -8,8 +8,20 @@
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/ext_power.h>
 #include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/pointing.h>
 
 / {
+    behaviors {
+        scroll_up_down: scroll_up_down {
+            compatible = "zmk,behavior-sensor-rotate";
+            label = "SCROLL_UP_DOWN";
+            #sensor-binding-cells = <0>;
+            bindings = <&msc SCRL_UP>, <&msc SCRL_UP>;
+
+            tap-ms = <20>;
+        };
+    };
+
     keymap {
         compatible = "zmk,keymap";
 
@@ -51,7 +63,9 @@
                       &trans     &trans    &trans    &trans     &trans    &trans  &trans     &trans    &trans           &trans
             >;
 
-            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
+            sensor-bindings =
+                <&inc_dec_kp C_VOL_UP C_VOL_DN>,
+                <&scroll_up_down>;
         };
 
         raise_layer {
